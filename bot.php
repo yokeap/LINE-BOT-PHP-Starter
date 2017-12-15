@@ -1,12 +1,18 @@
 <?php
+
+require('vendor/autoload.php');
+
 $access_token = 'SCV7PNRDb7/XCuNp5C7L3n25Sv4GsKuM9zRxy5+7cBCOl7QzhQloM1WUysJ/dytJOmAuNL9K/XAdrGrmieVADiWY/uIA4lZdgWF5LQUUosltryHc2JyEcz/dgujCXoF0joDF0Z84GLmydZituZPQRAdB04t89/1O/w1cDnyilFU=';
 
 // Parse JSON
 $events = json_decode($content, true);
 
-require('phpMQTT.php');
-
-mqtt = new phpMQTT('m14.cloudmqtt.com', 19348, 'phpMQTT Pub Example');
+$server = "m14.cloudmqtt.com";     // change if necessary
+$port = 19348;                     // change if necessary
+$username = "vidaaruu";                   // set your username
+$password = "Ro2sY3zEhY9W";                   // set your password
+$client_id = "phpMQTT-publisher"; 
+$mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
@@ -18,10 +24,6 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if (preg_match('/Koy/', $text)) {
 				$text = 'A lovely girl';
-				if ($mqtt->connect()) {
-					$mqtt->publish('/ESP/REMOTE','LED'); 
-					$mqtt->close();
-				}
 			}
 
 			if (preg_match('/led/', $text)) {
