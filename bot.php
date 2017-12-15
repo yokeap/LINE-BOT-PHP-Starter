@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
 					$mqtt->publish('/ESP/REMOTE','LED'); 
 					$mqtt->close();
 				}
-				$text = 'LED';
+				$text = 'LED_test';
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
