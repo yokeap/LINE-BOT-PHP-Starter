@@ -1,6 +1,6 @@
 <?php
 
-require("../phpMQTT.php");
+require("phpMQTT.php");
 $server = "m14.cloudmqtt.com";     // change if necessary
 $port = 19348;                     // change if necessary
 $username = "TEST";                   // set your username
