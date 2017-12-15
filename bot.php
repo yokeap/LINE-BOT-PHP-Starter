@@ -18,6 +18,10 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if (preg_match('/Koy/', $text)) {
 				$text = 'A lovely girl';
+				if ($mqtt->connect()) {
+					$mqtt->publish('/ESP/REMOTE','LED'); 
+					$mqtt->close();
+				}
 			}
 
 			if (preg_match('/led/', $text)) {
