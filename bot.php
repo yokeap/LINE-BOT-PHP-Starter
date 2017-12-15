@@ -9,14 +9,14 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-/*$server = "m14.cloudmqtt.com";     // change if necessary
+$server = "m14.cloudmqtt.com";     // change if necessary
 $port = 19348;                     // change if necessary
 $username = "vidaaruu";                   // set your username
 $password = "Ro2sY3zEhY9W";                   // set your password
 $client_id = "phpMQTT-publisher"; 
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
-echo "connecting to MQTT Server\n";*/
+echo "connecting to MQTT Server\n";
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
