@@ -1,9 +1,9 @@
 <?php
 //echo "MQTT Testing\n";
 
-//require("phpMQTT.php");
+require("phpMQTT.php");
 
-include ("phpMQTT.php");
+//include ("phpMQTT.php");
 
 echo "MQTT Testing2\n";
 
