@@ -6,7 +6,7 @@ $events = json_decode($content, true);
 
 require('phpMQTT.php');
 
-mqtt = new phpMQTT('wwww.m14.cloudmqtt.com', 19348, 'phpMQTT Pub Example');
+mqtt = new phpMQTT('m14.cloudmqtt.com', 19348, 'phpMQTT Pub Example');
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
