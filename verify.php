@@ -1,19 +1,15 @@
 <?php
 
-$channelSecret = '15d90e2bb96166ade76b47a77313fdaf';
-
-$userId = 'U9dfdf70cfb887d01e5ce9c92e33273b2';
-
-$access_token = 'SCV7PNRDb7/XCuNp5C7L3n25Sv4GsKuM9zRxy5+7cBCOl7QzhQloM1WUysJ/dytJOmAuNL9K/XAdrGrmieVADiWY/uIA4lZdgWF5LQUUosltryHc2JyEcz/dgujCXoF0joDF0Z84GLmydZituZPQRAdB04t89/1O/w1cDnyilFU=';
-
-//$url = 'https://api.line.me/oauth2/v2.1/verify';
-
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$response = $bot->getProfile($userId);
-if ($response->isSucceeded()) {
-    $profile = $response->getJSONDecodedBody();
-    echo $profile['displayName'];
-    echo $profile['pictureUrl'];
-    echo $profile['statusMessage'];
+require("../phpMQTT.php");
+$server = "m14.cloudmqtt.com";     // change if necessary
+$port = 19348;                     // change if necessary
+$username = "TEST";                   // set your username
+$password = "12345";                   // set your password
+$client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
+$mqtt = new phpMQTT($server, $port, $client_id);
+if ($mqtt->connect(true, NULL, $username, $password)) {
+	$mqtt->publish("/ESP/REMOTE", "LED", 0);
+	$mqtt->close();
+} else {
+    echo "Time out!\n";
 }
