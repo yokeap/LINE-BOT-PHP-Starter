@@ -14,6 +14,8 @@ $password = "Ro2sY3zEhY9W";                   // set your password
 $client_id = "phpMQTT-publisher"; 
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
+echo "connecting to MQTT Server\n";
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -27,9 +29,12 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('/led/', $text)) {
-				if ($mqtt->connect()) {
-					$mqtt->publish('/ESP/REMOTE','LED'); 
+				
+				if ($mqtt->connect(true, NULL, $username, $password)) {
+					$mqtt->publish("/ESP/REMOTE", "LED", 0);
 					$mqtt->close();
+				} else {
+				    echo "Time out!\n";
 				}
 				$text = 'LED_test';
 			}
