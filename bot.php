@@ -1,10 +1,13 @@
 <?php
 $access_token = 'SCV7PNRDb7/XCuNp5C7L3n25Sv4GsKuM9zRxy5+7cBCOl7QzhQloM1WUysJ/dytJOmAuNL9K/XAdrGrmieVADiWY/uIA4lZdgWF5LQUUosltryHc2JyEcz/dgujCXoF0joDF0Z84GLmydZituZPQRAdB04t89/1O/w1cDnyilFU=';
 
-// Get POST body content
-$content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+
+require('phpMQTT.php');
+
+mqtt = new phpMQTT('wwww.m14.cloudmqtt.com', 19348, 'phpMQTT Pub Example');
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -15,6 +18,14 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if (preg_match('/Koy/', $text)) {
 				$text = 'A lovely girl';
+			}
+
+			if (preg_match('/led/', $text)) {
+				if ($mqtt->connect()) {
+					$mqtt->publish('/ESP/REMOTE','LED'); 
+					$mqtt->close();
+				}
+				$text = 'LED';
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
