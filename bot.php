@@ -13,6 +13,9 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
+			if (preg_match('/Koy/', $text)) {
+				$text = 'A lovely girl';
+			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
