@@ -31,7 +31,7 @@ if (!is_null($events['events'])) {
 				$text = 'A lovely girl';
 			}
 
-			if (preg_match('/led/', $text)) {
+			if (preg_match('/led/', $text) || preg_match('/Led/', $text)) {
 				
 				if ($mqtt->connect(true, NULL, $username, $password)) {
 					$mqtt->publish("/ESP/REMOTE", "LED", 0);
@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 				} else {
 				    echo "Time out!\n";
 				}
-				$text = 'LED_test';
+				$text = 'LED test';
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
