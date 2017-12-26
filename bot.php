@@ -8,7 +8,7 @@ $server = "m14.cloudmqtt.com";     // change if necessary
 $port = 19348;                     // change if necessary
 $username = "vidaaruu";                   // set your username
 $password = "Ro2sY3zEhY9W";                   // set your password
-$client_id = "phpMQTT-publisher"; 
+$client_id = "phpMQTT-publisher";
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
 // Get POST body content
@@ -31,15 +31,26 @@ if (!is_null($events['events'])) {
 				$text = 'A lovely girl';
 			}
 
-			if (preg_match('/led/', $text) || preg_match('/Led/', $text)) {
-				
+			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
+
 				if ($mqtt->connect(true, NULL, $username, $password)) {
-					$mqtt->publish("/ESP/REMOTE", "LED", 0);
+					$mqtt->publish("/ESP/REMOTE", "Off", 0);
 					$mqtt->close();
 				} else {
 				    echo "Time out!\n";
 				}
-				$text = 'LED test';
+				$text = 'Pump:off';
+			}
+
+			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
+
+				if ($mqtt->connect(true, NULL, $username, $password)) {
+					$mqtt->publish("/ESP/REMOTE", "On", 0);
+					$mqtt->close();
+				} else {
+				    echo "Time out!\n";
+				}
+				$text = 'Pump:On';
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
