@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 				} else {
 				    echo "Time out!\n";
 				}
-				$text = 'Pump:off';
+				$text = 'Pump:Off';
 			}
 
 			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
