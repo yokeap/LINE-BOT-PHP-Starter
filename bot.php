@@ -19,6 +19,23 @@ $events = json_decode($content, true);
 
 echo "connecting to MQTT Server\n";
 
+if(!$mqtt->connect(true, NULL, $username, $password)) {
+	exit(1);
+}
+$topics['/ESP/REMOTE'] = array("qos" => 0, "function" => "procmsg");
+$mqtt->subscribe($topics, 0);
+
+while($mqtt->proc()){
+
+}
+
+$mqtt->close();
+function procmsg($topic, $msg){
+		echo "Msg Recieved: " . date("r") . "\n";
+		echo "Topic: {$topic}\n\n";
+		echo "\t$msg\n\n";
+}
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -32,13 +49,6 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
-
-				if ($mqtt->connect(true, NULL, $username, $password)) {
-					$mqtt->publish("/ESP/REMOTE", "Off", 0);
-					$mqtt->close();
-				} else {
-				    echo "Time out!\n";
-				}
 				$text = 'Pump:Off';
 			}
 
