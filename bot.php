@@ -31,7 +31,7 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
   );
   $mqtt->subscribe($topics,0);
   //mqtt->proc())
-  $mqtt->close();
+  //$mqtt->close();
 } else {
   exit(1);
 }
