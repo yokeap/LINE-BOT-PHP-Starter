@@ -9,7 +9,20 @@ $port = 19348;                     // change if necessary
 $username = "vidaaruu";                   // set your username
 $password = "Ro2sY3zEhY9W";                   // set your password
 $client_id = "phpMQTT-publisher";
+$topic = "/ESP/REMOTE";
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
+
+if(!$mqtt->connect(true, NULL, $username, $password)) {
+  $topics[$topic] = array(
+      "qos" => 0,
+      "function" => "procmsg"
+  );
+  $mqtt->subscribe($topics,0);
+  while($mqtt->proc()) {}
+  $mqtt->close();
+} else {
+  exit(1);
+}
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -17,29 +30,6 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 echo "connecting to MQTT Server\n";
-
-if(!$mqtt->connect(true, NULL, $username, $password)) {
-	exit(1);
-}
-
-$topics['/ESP/REMOTE'] = array("qos" => 0, "function" => "procmsg");
-$mqtt->subscribe($topics, 0);
-
-if($mqtt->proc()){
-
-}
-
-function procmsg($topic, $msg){
-		echo "Msg Recieved: " . date("r") . "\n";
-		echo "Topic: {$topic}\n\n";
-		echo "\t$msg\n\n";
-
-		// Build message to reply back
-		$messages = [
-			'type' => 'text',
-			'text' => $msg
-		];
-}
 
 function replyLine(){
 	echo "LineReply";
