@@ -31,8 +31,6 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
 	}*/
 	//$mqtt->proc()
   $mqtt->close();
-} else {
-  exit(1);
 }
 
 function procmsg($topic, $msg){
