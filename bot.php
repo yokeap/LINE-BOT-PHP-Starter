@@ -70,8 +70,6 @@ function replyLine($string, $replyToken){
 	echo $result . "\r\n";
 }
 
-
-
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -100,11 +98,6 @@ if (!is_null($events['events'])) {
 				}
 				$text = 'Pump:On';
 			}
-
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			replyLine($text, $replyToken);
-			/*
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
