@@ -101,7 +101,9 @@ if (!is_null($events['events'])) {
 				$text = 'Pump:On';
 			}
 
-			replyLine($text, $event['replyToken']);
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			replyLine($text, $replyToken);
 			/*
 			// Get replyToken
 			$replyToken = $event['replyToken'];
