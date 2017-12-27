@@ -9,7 +9,7 @@ $port = 19348;                     // change if necessary
 $username = "vidaaruu";                   // set your username
 $password = "Ro2sY3zEhY9W";                   // set your password
 $client_id = "phpMQTT-publisher";
-$topic = "/ESP/REMOTE";
+$topic = '/ESP/REMOTE';
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
 // Get POST body content
@@ -24,6 +24,7 @@ function procmsg($topic, $msg){
 }
 
 if(!$mqtt->connect(true, NULL, $username, $password)) {
+	echo "MQTT is connected\n";
   $topics[$topic] = array(
       "qos" => 0,
       "function" => "procmsg"
