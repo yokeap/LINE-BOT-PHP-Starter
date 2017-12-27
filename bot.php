@@ -18,6 +18,7 @@ $events = json_decode($content, true);
 
 function LineReply(){
 	// Get replyToken
+	echo "Reply";
 	$replyToken = $event['replyToken'];
 
 	// Build message to reply back
