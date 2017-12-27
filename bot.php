@@ -37,7 +37,7 @@ function procmsg($topic, $msg){
   echo "Msg Recieved: $msg\n";
 }
 
-function replyLine($string, $replyToken){
+function replyLine($string, $replyToken, $access_token){
 // Build message to reply back
 	$messages = [
 		'type' => 'text',
@@ -95,7 +95,7 @@ if (!is_null($events['events'])) {
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-			replyLine($text, $replyToken);
+			replyLine($text, $replyToken, $access_token);
 			/*
 			// Build message to reply back
 			$messages = [
