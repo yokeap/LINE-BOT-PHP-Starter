@@ -16,14 +16,14 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 
-function LineReply($text){
+function LineReply(){
 	// Get replyToken
 	$replyToken = $event['replyToken'];
 
 	// Build message to reply back
 	$messages = [
 		'type' => 'text',
-		'text' => $text
+		'text' => 'test'
 	];
 
 	// Make a POST Request to Messaging API to reply to sender
@@ -101,7 +101,7 @@ if (!is_null($events['events'])) {
 				}
 				$text = 'Pump:On';
 			}
-			LineReply($text);
+			LineReply();
 		}
 	}
 }
