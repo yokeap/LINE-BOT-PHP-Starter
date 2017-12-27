@@ -65,6 +65,16 @@ function replyLine($string, $replyToken, $access_token){
 	echo $result . "\r\n";
 }
 
+function publicMQTT($msg){
+	if ($mqtt->connect(true, NULL, $username, $password)) {
+		$mqtt->publish("/ESP/REMOTE", $msg, 0);
+		//$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
+		$mqtt->close();
+		} else {
+			echo "Time out!\n";
+		}	
+	}
+
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -77,21 +87,14 @@ if (!is_null($events['events'])) {
 				$text = 'A lovely girl';
 			}
 
-			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
-				$text = 'Pump:Off';
+			if (preg_match('Valve:Off', $text) || preg_match('valve:off', $text)) {
+				publicMQTT("Off");
+				$text = 'Valve:Off';
 			}
 
-			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
-
-				if ($mqtt->connect(true, NULL, $username, $password)) {
-					echo "MQTT is Connecting";
-					//$mqtt->publish("/ESP/REMOTE", "On", 0);
-					$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
-					$mqtt->close();
-				} else {
-				    echo "Time out!\n";
-				}
-				$text = 'Pump:On';
+			if (preg_match('Valve:On', $text) || preg_match('valve:on', $text)) {
+				publicMQTT("On");
+				$text = 'Valve:On';
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
