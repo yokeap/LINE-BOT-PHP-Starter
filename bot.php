@@ -19,10 +19,6 @@ $events = json_decode($content, true);
 
 echo "connecting to MQTT Server\n";
 
-function procmsg($topic, $msg){
-  echo "Msg Recieved: $msg\n";
-}
-
 if(!$mqtt->connect(true, NULL, $username, $password)) {
 	echo "MQTT is connected\n";
   $topics[$topic] = array(
@@ -34,6 +30,10 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
   //$mqtt->close();
 } else {
   exit(1);
+}
+
+function procmsg($topic, $msg){
+  echo "Msg Recieved: $msg\n";
 }
 
 function replyLine(){
