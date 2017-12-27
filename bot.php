@@ -26,9 +26,9 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
       "function" => "procmsg"
   );
   $mqtt->subscribe($topics,0);
-  /*while($mqtt->proc()){
+  while($mqtt->proc()){
 
-	}*/
+	}
 	//$mqtt->proc()
   $mqtt->close();
 }
