@@ -18,7 +18,7 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 echo "connecting to MQTT Server\n";
-
+/*
 if(!$mqtt->connect(true, NULL, $username, $password)) {
 	echo "MQTT is connected\n";
   $topics[$topic] = array(
@@ -38,7 +38,7 @@ function procmsg($topic, $msg){
 
 function replyLine(){
 	echo "LineReply";
-}
+}*/
 
 
 
@@ -61,6 +61,7 @@ if (!is_null($events['events'])) {
 			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
 
 				if ($mqtt->connect(true, NULL, $username, $password)) {
+					echo "MQTT is Connecting";
 					$mqtt->publish("/ESP/REMOTE", "On", 0);
 					$mqtt->close();
 				} else {
