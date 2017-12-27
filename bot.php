@@ -18,7 +18,7 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 echo "connecting to MQTT Server\n";
-/*
+
 if(!$mqtt->connect(true, NULL, $username, $password)) {
 	echo "MQTT is connected\n";
   $topics[$topic] = array(
@@ -26,8 +26,10 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
       "function" => "procmsg"
   );
   $mqtt->subscribe($topics,0);
-  //mqtt->proc())
-  //$mqtt->close();
+  while(mqtt->proc()){
+
+	}
+  $mqtt->close();
 } else {
   exit(1);
 }
@@ -38,7 +40,7 @@ function procmsg($topic, $msg){
 
 function replyLine(){
 	echo "LineReply";
-}*/
+}
 
 
 
