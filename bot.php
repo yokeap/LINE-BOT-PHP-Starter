@@ -29,8 +29,8 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
   /*while($mqtt->proc()){
 
 	}*/
-	$mqtt->proc()
-  //$mqtt->close();
+	//$mqtt->proc()
+  $mqtt->close();
 } else {
   exit(1);
 }
