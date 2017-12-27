@@ -12,13 +12,6 @@ $client_id = "phpMQTT-publisher";
 $topic = "/ESP/REMOTE";
 $mqtt = new Bluerhinos\phpMQTT($server, $port, $client_id);
 
-
-function procmsg($topic, $msg){
-		echo "Msg Recieved: " . date("r") . "\n";
-		echo "Topic: {$topic}\n\n";
-		echo "\t$msg\n\n";
-}
-
 if(!$mqtt->connect(true, NULL, $username, $password)) {
   $topics[$topic] = array(
       "qos" => 0,
@@ -30,6 +23,13 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
 } else {
   exit(1);
 }
+
+function procmsg($topic, $msg){
+		echo "Msg Recieved: " . date("r") . "\n";
+		echo "Topic: {$topic}\n\n";
+		echo "\t$msg\n\n";
+}
+
 
 // Get POST body content
 $content = file_get_contents('php://input');
