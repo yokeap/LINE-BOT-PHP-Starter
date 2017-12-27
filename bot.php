@@ -37,10 +37,11 @@ function procmsg($topic, $msg){
   echo "Msg Recieved: $msg\n";
 }
 
-function replyLine($string){
+function replyLine($string, $replyToken){
 	echo "LineReply";
 	// Get replyToken
-	$replyToken = $event['replyToken'];
+	//$replyToken = $event['replyToken'];
+	//$replyToken = $access_token;
 
 	// Build message to reply back
 	$messages = [
@@ -91,7 +92,8 @@ if (!is_null($events['events'])) {
 
 				if ($mqtt->connect(true, NULL, $username, $password)) {
 					echo "MQTT is Connecting";
-					$mqtt->publish("/ESP/REMOTE", "On", 0);
+					//$mqtt->publish("/ESP/REMOTE", "On", 0);
+					$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
 					$mqtt->close();
 				} else {
 				    echo "Time out!\n";
@@ -99,7 +101,7 @@ if (!is_null($events['events'])) {
 				$text = 'Pump:On';
 			}
 
-			replyLine($text);
+			replyLine($text, $event['replyToken']);
 			/*
 			// Get replyToken
 			$replyToken = $event['replyToken'];
