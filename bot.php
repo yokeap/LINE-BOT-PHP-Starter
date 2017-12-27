@@ -21,14 +21,14 @@ echo "connecting to MQTT Server\n";
 if(!$mqtt->connect(true, NULL, $username, $password)) {
 	exit(1);
 }
+
 $topics['/ESP/REMOTE'] = array("qos" => 0, "function" => "procmsg");
 $mqtt->subscribe($topics, 0);
 
-while($mqtt->proc()){
+if($mqtt->proc()){
 
 }
 
-$mqtt->close();
 function procmsg($topic, $msg){
 		echo "Msg Recieved: " . date("r") . "\n";
 		echo "Topic: {$topic}\n\n";
