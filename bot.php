@@ -38,12 +38,7 @@ function procmsg($topic, $msg){
 }
 
 function replyLine($string, $replyToken){
-	echo "LineReply";
-	// Get replyToken
-	//$replyToken = $event['replyToken'];
-	//$replyToken = $access_token;
-
-	// Build message to reply back
+// Build message to reply back
 	$messages = [
 		'type' => 'text',
 		'text' => $string
@@ -100,7 +95,8 @@ if (!is_null($events['events'])) {
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-
+			replyLine($text, $replyToken);
+			/*
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
@@ -126,7 +122,7 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 
 			echo $result . "\r\n";
-			
+			*/
 		}
 	}
 }
