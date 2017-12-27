@@ -90,22 +90,12 @@ if (!is_null($events['events'])) {
 
 			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
 				publicMQTT($mqtt, "Off", $username, $password);
-				//$mqtt_msg = 'Off';
-
 				$text = 'Valve:Off';
 				replyLine($text, $event['replyToken'], $access_token);
 			}
 
 			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
-				//publicMQTT($mqtt, "On", $username, $password);
-				//$mqtt_msg = 'On';
-				if ($mqtt->connect(true, NULL, $username, $password)) {
-					$mqtt->publish("/ESP/REMOTE", "On", 0);
-					//$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
-					$mqtt->close();
-				} else {
-					echo "Time out!\n";
-				}	
+				publicMQTT($mqtt, "On", $username, $password);
 				$text = 'Valve:On';
 				replyLine($text, $event['replyToken'], $access_token);
 			}
