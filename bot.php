@@ -65,7 +65,7 @@ function replyLine($string, $replyToken, $access_token){
 	echo $result . "\r\n";
 }
 
-function publicMQTT($msg){
+function publicMQTT($msg, $username, $password){
 	if ($mqtt->connect(true, NULL, $username, $password)) {
 		$mqtt->publish("/ESP/REMOTE", $msg, 0);
 		//$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
@@ -88,12 +88,12 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('Valve:Off', $text) || preg_match('valve:off', $text)) {
-				publicMQTT("Off");
+				publicMQTT("Off", $username, $password);
 				$text = 'Valve:Off';
 			}
 
 			if (preg_match('Valve:On', $text) || preg_match('valve:on', $text)) {
-				publicMQTT("On");
+				publicMQTT("On", $username, $password);
 				$text = 'Valve:On';
 			}
 			// Get replyToken
