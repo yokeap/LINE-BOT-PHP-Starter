@@ -24,7 +24,7 @@ if(!$mqtt->connect(true, NULL, $username, $password)) {
 $topics['/ESP/REMOTE'] = array("qos" => 0, "function" => "procmsg");
 $mqtt->subscribe($topics, 0);
 
-if($mqtt->proc()){
+while($mqtt->proc()){
 
 }
 
