@@ -73,7 +73,7 @@ function publicMQTT($mqtt, $msg, $username, $password){
 		} else {
 			echo "Time out!\n";
 		}	
-	}
+}
 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
@@ -88,14 +88,25 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('Valve:Off', $text) || preg_match('valve:off', $text)) {
-				publicMQTT($mqtt, "Off", $username, $password);
+				publicMQTT($mqtt, 'Off', $username, $password);
+				//$mqtt_msg = 'Off';
 				$text = 'Valve:Off';
 			}
 
 			if (preg_match('Valve:On', $text) || preg_match('valve:on', $text)) {
-				publicMQTT($mqtt, "On", $username, $password);
+				publicMQTT($mqtt, 'On', $username, $password);
+				//$mqtt_msg = 'On';
 				$text = 'Valve:On';
 			}
+			/*
+			if ($mqtt->connect(true, NULL, $username, $password)) {
+				$mqtt->publish("/ESP/REMOTE", $msg, 0);
+				//$mqtt->publish("/ESP/REMOTE", $event['replyToken'], 0);
+				$mqtt->close();
+				} else {
+					echo "Time out!\n";
+			}	
+			*/
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			replyLine($text, $replyToken, $access_token);
