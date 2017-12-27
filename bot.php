@@ -85,16 +85,18 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if (preg_match('/Koy/', $text)) {
 				$text = 'A lovely girl';
+				replyLine($text, $event['replyToken'], $access_token);
 			}
 
-			if (preg_match('Valve:Off', $text) || preg_match('valve:off', $text)) {
+			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
 				//publicMQTT($mqtt, 'Off', $username, $password);
 				//$mqtt_msg = 'Off';
 
 				$text = 'Valve:Off';
+				replyLine($text, $event['replyToken'], $access_token);
 			}
 
-			if (preg_match('Valve:On', $text) || preg_match('valve:on', $text)) {
+			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
 				//publicMQTT($mqtt, 'On', $username, $password);
 				//$mqtt_msg = 'On';
 				if ($mqtt->connect(true, NULL, $username, $password)) {
@@ -105,6 +107,7 @@ if (!is_null($events['events'])) {
 					echo "Time out!\n";
 				}	
 				$text = 'Valve:On';
+				replyLine($text, $event['replyToken'], $access_token);
 			}
 			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
@@ -116,8 +119,7 @@ if (!is_null($events['events'])) {
 			}	
 			*/
 			// Get replyToken
-			$replyToken = $event['replyToken'];
-			replyLine($text, $replyToken, $access_token);
+			//$replyToken = $event['replyToken'];
 			/*
 			// Build message to reply back
 			$messages = [
