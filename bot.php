@@ -89,7 +89,7 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('/Off/', $text) || preg_match('/off/', $text)) {
-				//publicMQTT($mqtt, 'Off', $username, $password);
+				publicMQTT($mqtt, "Off", $username, $password);
 				//$mqtt_msg = 'Off';
 
 				$text = 'Valve:Off';
@@ -97,7 +97,7 @@ if (!is_null($events['events'])) {
 			}
 
 			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
-				//publicMQTT($mqtt, 'On', $username, $password);
+				//publicMQTT($mqtt, "On", $username, $password);
 				//$mqtt_msg = 'On';
 				if ($mqtt->connect(true, NULL, $username, $password)) {
 					$mqtt->publish("/ESP/REMOTE", "On", 0);
