@@ -99,6 +99,17 @@ if (!is_null($events['events'])) {
 				$text = 'Valve:On';
 				replyLine($text, $event['replyToken'], $access_token);
 			}
+			if (preg_match('/On/', $text) || preg_match('/on/', $text)) {
+				publicMQTT($mqtt, "On", $username, $password);
+				$text = 'Valve:On';
+				replyLine($text, $event['replyToken'], $access_token);
+			}
+			if(strncmp('S,', $text, 2) || strncmp('s,', $text, 2)){
+				publicMQTT($mqtt, $text, $username, $password);
+				$strSub = strrpos($text, 'S,');
+				$text = 'Watering time is set to' . $strSub;
+				replyLine($text, $event['replyToken'], $access_token);
+			}
 			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 				$mqtt->publish("/ESP/REMOTE", $msg, 0);
