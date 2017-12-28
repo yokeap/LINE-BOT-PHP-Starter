@@ -105,10 +105,10 @@ if (!is_null($events['events'])) {
 				replyLine($text, $event['replyToken'], $access_token);
 			}
 			if(strncmp('S,', $text, 2) || strncmp('s,', $text, 2)){
-				publicMQTT($mqtt, $text.'\n', $username, $password);
+				publicMQTT($mqtt, $text."<br>", $username, $password);
 				$strSub = $text;
 				substr($strSub, 2, 2);
-				$text = 'Watering time is set to' . $strSub;
+				$text = 'Watering time is set to ' . $strSub;
 				replyLine($text, $event['replyToken'], $access_token);
 			}
 			/*
